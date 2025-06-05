@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curriculum Vitae - Daniele Pennella</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            overflow-x: hidden;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        /* Sfondo animato con griglia 3D */
+        .animated-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 25% 25%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(255, 119, 198, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
+            background-size: 100% 100%;
+            z-index: -2;
+            animation: gradientFlow 12s ease-in-out infinite alternate;
+        }
+
+        .animated-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: gridFloat 25s linear infinite;
+        }
+
+        /* Particelle fluttuanti */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: floatUp 8s ease-in-out infinite;
+        }
+
+        .particle:nth-child(2n) {
+            background: radial-gradient(circle, rgba(120, 119, 198, 0.6) 0%, transparent 70%);
+            animation-delay: -2s;
+        }
+
+        .particle:nth-child(3n) {
+            background: radial-gradient(circle, rgba(255, 119, 198, 0.6) 0%, transparent 70%);
+            animation-delay: -4s;
+        }
+
+        /* Header con effetti 3D */
+        header {
+            background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(35, 35, 35, 0.9));
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: headerEntry 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            opacity: 0;
+            transform: translateY(-50px);
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            animation: headerShine 3s ease-in-out infinite;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
+
+        .profile-image {
+            position: relative;
+            animation: profileFloat 1.5s ease-out 0.5s forwards;
+            opacity: 0;
+            transform: translateZ(-100px) rotateY(90deg);
+        }
+
+        .profile-image-container {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 
+                0 0 0 4px rgba(255, 255, 255, 0.1),
+                0 0 30px rgba(120, 119, 198, 0.4),
+                0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .profile-image-container::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: conic-gradient(
+                from 0deg,
+                #7877c6,
+                #ff77c6,
+                #77dbff,
+                #7877c6
+            );
+            border-radius: 50%;
+            z-index: -1;
+            animation: borderRotate 6s linear infinite;
+        }
+
+        .profile-image:hover .profile-image-container {
+            transform: translateZ(30px) rotateY(15deg) rotateX(10deg);
+            box-shadow: 
+                0 0 0 6px rgba(255, 255, 255, 0.2),
+                0 0 40px rgba(120, 119, 198, 0.6),
+                0 30px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .profile-image:hover img {
+            transform: scale(1.1);
+        }
+
+        .header-text {
+            text-align: left;
+            animation: textSlide 1.2s ease-out 0.8s forwards;
+            opacity: 0;
+            transform: translateX(50px);
+        }
+
+        .header-text h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff, #7877c6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            animation: titleGlow 4s ease-in-out infinite alternate;
+        }
+
+        .header-text .subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        /* Sezioni con effetti 3D */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .section {
+            background: linear-gradient(145deg, rgba(20, 20, 20, 0.9), rgba(35, 35, 35, 0.7));
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            animation: sectionEntry 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(50px) rotateX(10deg);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.2),
+                0 0 0 1px rgba(255, 255, 255, 0.05);
+        }
+
+        .section:nth-child(1) { animation-delay: 0.2s; }
+        .section:nth-child(2) { animation-delay: 0.4s; }
+        .section:nth-child(3) { animation-delay: 0.6s; }
+        .section:nth-child(4) { animation-delay: 0.8s; }
+        .section:nth-child(5) { animation-delay: 1.0s; }
+        .section:nth-child(6) { animation-delay: 1.2s; }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transition: left 0.8s ease;
+        }
+
+        .section:hover::before {
+            left: 100%;
+        }
+
+        .section:hover {
+            transform: translateY(-10px) rotateX(5deg) rotateY(2deg);
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+        }
+
+        .section.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .section h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #7877c6, #ff77c6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section h2 i {
+            background: linear-gradient(135deg, #7877c6, #ff77c6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.2em;
+        }
+
+        /* Informazioni personali con icone */
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .info-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateX(10px);
+        }
+
+        .info-item i {
+            font-size: 1.2em;
+            color: #7877c6;
+            width: 20px;
+            text-align: center;
+        }
+
+        .info-item a {
+            color: #77dbff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .info-item a:hover {
+            color: #ff77c6;
+        }
+
+        /* Lista con animazioni */
+        .animated-list {
+            list-style: none;
+        }
+
+        .animated-list li {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .animated-list li::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(120, 119, 198, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .animated-list li:hover::before {
+            left: 100%;
+        }
+
+        .animated-list li:hover {
+            transform: translateY(-5px) translateZ(10px);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(120, 119, 198, 0.3);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .animated-list li strong {
+            color: #77dbff;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .animated-list li p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 8px;
+            font-size: 0.95em;
+        }
+
+        /* Skills con progress bar animata */
+        .skills-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .skill-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(120, 119, 198, 0.1), rgba(255, 119, 198, 0.1));
+            transition: width 0.6s ease;
+        }
+
+        .skill-item:hover::before {
+            width: 100%;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-3px);
+            border-color: rgba(120, 119, 198, 0.3);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer migliorato */
+        footer {
+            background: linear-gradient(135deg, rgba(15, 15, 15, 0.95), rgba(25, 25, 25, 0.9));
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px 20px;
+            text-align: center;
+            margin-top: 60px;
+            animation: footerEntry 1s ease-out 2s forwards;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        footer a {
+            color: #7877c6;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        footer a::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #7877c6, #ff77c6);
+            transition: width 0.3s ease;
+        }
+
+        footer a:hover::after {
+            width: 100%;
+        }
+
+        footer a:hover {
+            color: #ff77c6;
+            transform: translateY(-2px);
+        }
+
+        /* Animazioni */
+        @keyframes gradientFlow {
+            0% { 
+                background-position: 0% 50%;
+                filter: hue-rotate(0deg);
+            }
+            50% { 
+                background-position: 100% 50%;
+                filter: hue-rotate(180deg);
+            }
+            100% { 
+                background-position: 0% 50%;
+                filter: hue-rotate(360deg);
+            }
+        }
+
+        @keyframes gridFloat {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(40px, 40px); }
+        }
+
+        @keyframes floatUp {
+            0%, 100% { 
+                transform: translateY(100vh) translateX(0px) rotate(0deg);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            50% { 
+                transform: translateY(-20px) translateX(100px) rotate(180deg);
+                opacity: 1;
+            }
+            90% { opacity: 1; }
+        }
+
+        @keyframes headerEntry {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes headerShine {
+            0% { left: -100%; }
+            50% { left: 100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes profileFloat {
+            to {
+                opacity: 1;
+                transform: translateZ(0) rotateY(0deg);
+            }
+        }
+
+        @keyframes textSlide {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes titleGlow {
+            0% { text-shadow: 0 0 20px rgba(120, 119, 198, 0.5); }
+            100% { text-shadow: 0 0 40px rgba(255, 119, 198, 0.8); }
+        }
+
+        @keyframes borderRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes sectionEntry {
+            to {
+                opacity: 1;
+                transform: translateY(0) rotateX(0deg);
+            }
+        }
+
+        @keyframes footerEntry {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                padding: 20px 15px;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .header-text {
+                text-align: center;
+            }
+            
+            .header-text h1 {
+                font-size: 2.5rem;
+            }
+            
+            .profile-image-container {
+                width: 140px;
+                height: 140px;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            .section h2 {
+                font-size: 1.5rem;
+            }
+            
+            .skills-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 40px 15px;
+            }
+            
+            .header-text h1 {
+                font-size: 2rem;
+            }
+            
+            .profile-image-container {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .section {
+                padding: 15px;
+                border-radius: 15px;
+            }
+            
+            .section h2 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-background"></div>
+    <div class="particles" id="particles"></div>
+
+    <header>
+        <div class="header-content">
+            <div class="profile-image">
+                <div class="profile-image-container">
+                    <img src="penny1.jpg" alt="Foto di Daniele Pennella">
+                </div>
+            </div>
+            <div class="header-text">
+                <h1>Daniele Pennella</h1>
+                <p class="subtitle">Creativo, appassionato e curioso.</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <div class="section full-width">
+            <h2><i class="fas fa-user"></i> About Me</h2>
+            <p>Amo il mondo della comunicazione, tanto da studiarne la scienza all'Università di Firenze.</p>
+            <p>Mente sana e corpo sano sono caratteristiche fondamentali per me: mi permettono di essere performante nelle attività quotidiane e di raggiungere i miei obiettivi ambiziosi nella vita. Il viaggio della mia vita è appena iniziato, e sono pronto a mettermi in gioco.</p>
+        </div>
+
+        <div class="section">
+            <h2><i class="fas fa-info-circle"></i> Informazioni Personali</h2>
+            <div class="info-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Via della Spada 15, Firenze, Italia</span>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-phone"></i>
+                <span>+39 348 179 5356</span>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-envelope"></i>
+                <span>dape.pennella10@gmail.com</span>
+            </div>
+            <div class="info-item">
+                <i class="fab fa-linkedin"></i>
+                <a href="https://linkedin.com/in/danielepennella" target="_blank">linkedin.com/in/danielepennella</a>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><i class="fas fa-brain"></i> Competenze</h2>
+            <div class="skills-list">
+                <div class="skill-item">Flessibilità e adattamento</div>
+                <div class="skill-item">Problem solving</div>
+                <div class="skill-item">Orientamento agli obiettivi</div>
+                <div class="skill-item">Creatività</div>
+                <div class="skill-item">Gestione sotto pressione</div>
+                <div class="skill-item">Time management</div>
+                <div class="skill-item">Teamwork & Leadership</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><i class="fas fa-briefcase"></i> Esperienze Lavorative</h2>
+            <ul class="animated-list">
+                <li>
+                    <strong>Masseria Chiancone Torricella</strong> - Receptionist (06/2015 - 10/2022)
+                    <p>Accoglienza clienti e fornitura di informazioni e servizio superiore.</p>
+                    <p>Gestione chiamate, raccolta e trattamento informazioni personali.</p>
+                    <p>Gestione database, posta e distribuzione busta paga.</p>
+                </li>
+                <li>
+                    <strong>Remida</strong> - Emissione Ticket (03/2023 - 10/2023)
+                    <p>Assistenza clientela e informazioni sui giochi.</p>
+                    <p>Controllo giocate e vincite, calcolo importi.</p>
+                    <p>Gestione cassa e reclami in modo cordiale.</p>
+                </li>
+                <li>
+                    <strong>Cameriere</strong> - Commis di sala
+                    <p>Lavoro extra in molteplici ristoranti della città.</p>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2><i class="fas fa-graduation-cap"></i> Istruzione e Formazione</h2>
+            <ul class="animated-list">
+                <li>
+                    <strong>Diploma</strong> - I.I.S.S. Leonardo da Vinci (Media: 7, voto 77/100)
+                    <p>Competenze: lavoro di squadra, attenzione ai dettagli, multitasking, organizzazione del tempo e gestione delle scadenze.</p>
+                </li>
+                <li>
+                    <strong>Certificazioni</strong>
+                    <p>• BLS-D: corso formativo basico con certificazione finale</p>
+                    <p>• Google Digital Training: certificazione in Digital Marketing</p>
+                    <p>• Corso tecniche di apprendimento avanzato presso Genio Net</p>
+                    <p>• Formazione "Genio in 21 giorni": certificato finale</p>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section full-width">
+            <h2><i class="fas fa-trophy"></i> Accomplishments</h2>
+            <ul class="animated-list">
+                <li>
+                    <strong>Apprendista cicerone (FAI)</strong>
+                    <p>Alternanza scuola-lavoro, promozione della tutela del patrimonio storico-artistico e ambientale.</p>
+                </li>
+                <li>
+                    <strong>Esperienza formativa ambientale</strong>
+                    <p>Esperienza pratica nel difendere l'ambiente e il patrimonio culturale.</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <footer>
+        <p>web by <a href="https://www.instagram.com/_matteomarino/" target="_blank">Matteo Marino</a></p>
+    </footer>
+
+    <script>
+        // Generazione particelle animate
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 40;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 6 + 6) + 's';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                
+                const size = Math.random() * 3 + 2;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Effetto parallax per mouse
+        document.addEventListener('mousemove', (e) => {
+            const sections = document.querySelectorAll('.section');
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+            
+            sections.forEach((section, index) => {
+                const speed = (index + 1) * 0.5;
+                const rotateX = -(mouseY - 0.5) * speed;
+                const rotateY = (mouseX - 0.5) * speed;
+                
+                section.style.transform = `
+                    translateY(-10px) 
+                    rotateX(${5 + rotateX}deg) 
+                    rotateY(${2 + rotateY}deg)
+                `;
+            });
+        });
+
+        // Effetto hover avanzato per sezioni
+        document.querySelectorAll('.section').forEach(section => {
+            section.addEventListener('mouseenter', (e) => {
+                const rect = section.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = -(y - centerY) / 10;
+                const rotateY = (x - centerX) / 10;
+                
+                section.style.transform = `
+                    translateY(-10px) 
+                    rotateX(${5 + rotateX}deg) 
+                    rotateY(${2 + rotateY}deg)
+                `;
+            });
+        });
+
+        // Animazione di scroll reveal
+        function revealOnScroll() {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const sectionVisible = 150;
+                
+                if (sectionTop < window.innerHeight - sectionVisible) {
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0) rotateX(0deg)';
+                }
+            });
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            revealOnScroll();
+        });
+
+        window.addEventListener('scroll', revealOnScroll);
+
+        // Effetto di typing per il titolo
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            
+            type();
+        }
+
+        // Attivazione effetto typing dopo il caricamento
+        setTimeout(() => {
+            const title = document.querySelector('.header-text h1');
+            const originalText = title.textContent;
+            typeWriter(title, originalText, 150);
+        }, 1500);
+    </script>
+</body>
+</html>
