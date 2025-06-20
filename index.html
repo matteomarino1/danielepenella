@@ -4,7 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daniele Pennella - Profile</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Security Headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self';">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+    <!-- External Resources with SRI -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    
     <style>
         * {
             margin: 0;
@@ -281,6 +294,39 @@
         .button[href*="youtube"] i { color: #FF0000; }
         .button[href*="cv"] i { color: #34D399; }
 
+        /* Cookie button */
+        .cookie-button {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(145deg, rgba(30, 30, 30, 0.9), rgba(20, 20, 20, 0.95));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 24px;
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            animation: cookieEntry 1s ease-out 2.5s forwards;
+            opacity: 0;
+            transform: translateY(100px);
+        }
+
+        .cookie-button:hover {
+            transform: translateY(-5px) scale(1.1);
+            background: linear-gradient(145deg, rgba(40, 40, 40, 0.9), rgba(30, 30, 30, 1));
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(139, 69, 19, 0.3);
+            color: #D2691E;
+        }
+
         /* Footer migliorato */
         footer {
             position: fixed;
@@ -389,6 +435,13 @@
             to { transform: rotate(360deg); }
         }
 
+        @keyframes cookieEntry {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* Responsive design */
         @media (max-width: 768px) {
             .profile-card {
@@ -449,23 +502,23 @@
             </div>
 
             <div class="buttons-container">
-                <a href="https://www.instagram.com/daniele_pennella_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="button" target="_blank">
+                <a href="https://www.instagram.com/daniele_pennella_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="button" target="_blank" rel="noopener noreferrer">
                     <i class="fab fa-instagram"></i>
                     <span>Instagram</span>
                 </a>
-                <a href="https://facebook.com" class="button" target="_blank">
+                <a href="https://facebook.com" class="button" target="_blank" rel="noopener noreferrer">
                     <i class="fab fa-facebook"></i>
                     <span>Facebook</span>
                 </a>
-                <a href="https://tiktok.com" class="button" target="_blank">
+                <a href="https://tiktok.com" class="button" target="_blank" rel="noopener noreferrer">
                     <i class="fab fa-tiktok"></i>
                     <span>TikTok</span>
                 </a>
-                <a href="https://youtube.com" class="button" target="_blank">
+                <a href="https://youtube.com" class="button" target="_blank" rel="noopener noreferrer">
                     <i class="fab fa-youtube"></i>
                     <span>YouTube</span>
                 </a>
-                <a href="cv.html" class="button" target="_blank">
+                <a href="cv.html" class="button" target="_blank" rel="noopener noreferrer">
                     <i class="fas fa-file-pdf"></i>
                     <span>CV</span>
                 </a>
@@ -473,8 +526,13 @@
         </div>
     </div>
 
+    <!-- Cookie button -->
+    <a href="cookies.html" class="cookie-button" title="Cookie Policy">
+        <i class="fas fa-cookie-bite"></i>
+    </a>
+
     <footer>
-        <p>web by <a href="https://www.instagram.com/_matteomarino/" target="_blank">Matteo Marino</a></p>
+        <p>web by <a href="https://www.instagram.com/_matteomarino/" target="_blank" rel="noopener noreferrer">Matteo Marino</a></p>
     </footer>
 
     <script>
@@ -561,10 +619,12 @@
         // Aggiunta di un effetto di "respirazione" alla foto profilo
         setInterval(() => {
             const profilePic = document.querySelector('.profile-pic-container');
-            profilePic.style.transform += ' scale(1.02)';
-            setTimeout(() => {
-                profilePic.style.transform = profilePic.style.transform.replace(' scale(1.02)', '');
-            }, 1000);
+            if (profilePic) {
+                profilePic.style.transform += ' scale(1.02)';
+                setTimeout(() => {
+                    profilePic.style.transform = profilePic.style.transform.replace(' scale(1.02)', '');
+                }, 1000);
+            }
         }, 3000);
     </script>
 </body>

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Policy - Daniele Pennella</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            overflow-x: hidden;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            position: relative;
+            min-height: 100vh;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        /* Sfondo con griglia 3D animata */
+        .grid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 119, 198, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
+            background-size: 100% 100%;
+            z-index: -2;
+            animation: gradientShift 8s ease-in-out infinite alternate;
+        }
+
+        .grid-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cookie-card {
+            background: linear-gradient(145deg, rgba(20, 20, 20, 0.9), rgba(35, 35, 35, 0.7));
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            animation: cardEntry 1s ease-out forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            background: linear-gradient(145deg, rgba(30, 30, 30, 0.8), rgba(20, 20, 20, 0.9));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(145deg, rgba(40, 40, 40, 0.9), rgba(30, 30, 30, 1));
+            border-color: rgba(255, 255, 255, 0.2);
+            color: #7877c6;
+        }
+
+        .back-button i {
+            font-size: 16px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #7877c6, #ff77c6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+
+        .cookie-icon {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .cookie-icon i {
+            font-size: 4rem;
+            color: #D2691E;
+            animation: cookieRotate 3s ease-in-out infinite;
+        }
+
+        h2 {
+            color: #7877c6;
+            font-size: 1.5rem;
+            margin: 30px 0 15px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(120, 119, 198, 0.3);
+        }
+
+        h3 {
+            color: #ff77c6;
+            font-size: 1.2rem;
+            margin: 25px 0 10px 0;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, rgba(120, 119, 198, 0.2), rgba(255, 119, 198, 0.2));
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #7877c6;
+            margin: 20px 0;
+        }
+
+        .contact-info {
+            background: linear-gradient(145deg, rgba(30, 30, 30, 0.8), rgba(20, 20, 20, 0.9));
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 30px;
+        }
+
+        .contact-info h3 {
+            margin-top: 0;
+        }
+
+        /* Animazioni */
+        @keyframes gradientShift {
+            0% { 
+                background-position: 0% 0%;
+                filter: hue-rotate(0deg);
+            }
+            100% { 
+                background-position: 100% 100%;
+                filter: hue-rotate(60deg);
+            }
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        @keyframes cardEntry {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes cookieRotate {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(10deg) scale(1.1); }
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 15px;
+            }
+            
+            .cookie-card {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .cookie-icon i {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cookie-card {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-background"></div>
+    
+    <div class="container">
+        <div class="cookie-card">
+            <a href="index.html" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+                <span>Torna al Profilo</span>
+            </a>
+            
+            <div class="cookie-icon">
+                <i class="fas fa-cookie-bite"></i>
+            </div>
+            
+            <h1>Cookie Policy</h1>
+            <p class="subtitle">Informazioni sui cookie utilizzati in questo sito</p>
+            
+            <h2>Cosa sono i Cookie</h2>
+            <p>I cookie sono piccoli file di testo che vengono memorizzati sul tuo dispositivo quando visiti un sito web. Vengono utilizzati per migliorare la tua esperienza di navigazione e fornire funzionalità personalizzate.</p>
+            
+            <h2>Tipi di Cookie Utilizzati</h2>
+            
+            <h3>Cookie Tecnici</h3>
+            <p>Questi cookie sono essenziali per il corretto funzionamento del sito web e non possono essere disabilitati. Includono:</p>
+            <ul>
+                <li>Cookie di sessione per mantenere le tue preferenze durante la navigazione</li>
+                <li>Cookie di sicurezza per proteggere il sito da attacchi</li>
+                <li>Cookie di funzionalità per ricordare le tue impostazioni</li>
+            </ul>
+            
+            <h3>Cookie Analitici</h3>
+            <p>Utilizziamo cookie analitici per comprendere come i visitatori interagiscono con il nostro sito. Questi dati ci aiutano a migliorare l'esperienza utente. I dati raccolti sono anonimi e aggregati.</p>
+            
+            <div class="highlight">
+                <h3>Cookie di Terze Parti</h3>
+                <p>Il nostro sito può utilizzare servizi di terze parti che impostano i propri cookie:</p>
+                <ul>
+                    <li><strong>Social Media:</strong> Cookie per l'integrazione con piattaforme social (Instagram, Facebook, TikTok, YouTube)</li>
+                    <li><strong>Font e Icone:</strong> Cookie per il caricamento di font e icone da CDN esterni</li>
+                </ul>
+            </div>
+            
+            <h2>Gestione dei Cookie</h2>
+            <p>Puoi gestire le tue preferenze sui cookie attraverso le impostazioni del tuo browser. Tieni presente che disabilitare alcuni cookie potrebbe influire sulla funzionalità del sito.</p>
+            
+            <h3>Come disabilitare i cookie:</h3>
+            <ul>
+                <li><strong>Chrome:</strong> Impostazioni > Privacy e sicurezza > Cookie e altri dati dei siti</li>
+                <li><strong>Firefox:</strong> Impostazioni > Privacy e sicurezza > Cookie e dati dei siti web</li>
+                <li><strong>Safari:</strong> Preferenze > Privacy > Gestisci dati dei siti web</li>
+                <li><strong>Edge:</strong> Impostazioni > Cookie e autorizzazioni sito</li>
+            </ul>
+            
+            <h2>Aggiornamenti della Policy</h2>
+            <p>Questa Cookie Policy può essere aggiornata periodicamente per riflettere cambiamenti nelle nostre pratiche o per altri motivi operativi, legali o normativi.</p>
+            
+            <div class="contact-info">
+                <h3>Contatti</h3>
+                <p>Per qualsiasi domanda riguardo questa Cookie Policy, puoi contattarci attraverso i nostri canali social o tramite il nostro sito web.</p>
+                <p><strong>Ultimo aggiornamento:</strong> Dicembre 2024</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Animazione di entrata
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                document.body.classList.add('loaded');
+            }, 100);
+        });
+    </script>
+</body>
+</html>
